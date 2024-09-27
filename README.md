@@ -1,18 +1,31 @@
-# GPMall 电商网站
+![1566284996878](README.assets/1566284996878.png)
 
-很多学员苦恼于没接触过分布式项目，希望有一些完整的项目来落地。所以我抽空给大家开发了一个微服务架构的电商网站，有兴趣的同学，可以私聊我一起参与项目的开发。
+[![license](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)](https://github.com/2227324689/ToBeBetter/blob/master/LICENSE) [![issues](https://img.shields.io/bitbucket/issues-raw/2227324689/ToBeBetter.svg?style=flat-square)](https://github.com/2227324689/gpmall/issues) [![constract us](https://img.shields.io/badge/contract%20us-%E5%AE%98%E7%BD%91-brightgreen.svg?style=flat-square)](https://www.gupaoedu.com) [![origin](https://img.shields.io/badge/origin-%E5%92%95%E6%B3%A1%E5%AD%A6%E9%99%A2-yellowgreen.svg?style=flat-square)](https://www.gupaoedu.com) [![blog](https://img.shields.io/badge/blog-%E5%8D%9A%E5%AE%A2-orange.svg?style=flat-square)](https://istio.tech) [![author](https://img.shields.io/badge/author-Mic-blue.svg?style=flat-square)](#) [![Gpmall](https://img.shields.io/badge/linked-gpmall-red.svg?style=flat-square)](#) ![hits](http://hits.dwyl.io/gpmall/gpmall.svg?style=flat-square) [![community](https://img.shields.io/badge/community-%E6%8A%80%E6%9C%AF%E7%A4%BE%E5%8C%BA-lightgrey.svg?style=flat-square)](https://gper.club)
 
-为了更好的体现在互联网公司项目的完整性，我对模块做了非常细的拆分，并没有使用maven多模块来管理项目，所以大家在部署的时候会一些麻烦
+# 咕泡商城- 微服务架构实战
 
-> 这个项目开发完成之后，我会部署到公网上，供大家来体验，并且基于访问量的提升，我们可以不断的优化这个架构。
+咕泡商城是[咕泡学院](https://www.gupaoedu.com) Java架构课程中，帮助学员对于技术更好落地的一个实战项目，项目基于springboot2.1.6.RELEASE+Dubbo2.7.3 来构建微服务。
+
+业务模块划分，尽量贴合互联网公司的架构体系。所以，除了业务本身的复杂度不是很高之外，整体的架构基本和实际架构相差无几。
+
+但实际上，真实的生产级的项目由于用户量以及业务的复杂度，会变得非常复杂。 所以我们会让更多的人参与进来，从需求、设计、解决方案等方面出发来对项目进行迭代，从而培养出一定的
+
+实际解决方案的经验和能力。
+
+# 应用架构图
+
+![1565533924343](README.assets/1565533924343.png)
 
 
 
-**注意： 参与的人太多，本来是打算分组，但是分组的配合比较麻烦，比如各个组的代码的分支提交、合并、不好协调。所以暂时没考虑分组。所有参与的人，都是从前台到后台的统一开发。大家自己在开发的时候可以自己拉组**
+## 项目演示地址
+
+* 商场系统演示地址：http://vip.istio.tech（暂时不可用）
+* 后台管理系统：开发中..
 
 # 项目用到的技术
 
-项目采用前后端分离开发，前端需要独立部署。前端架构是基于 xmall 提供框架进行的重构。目前核心的技术栈采用的是SpringBoot2.1.5.RELEASE+Dubbo2.7.2,  后续我会再基于spring cloud alibaba进行重构
+项目采用前后端分离开发，前端需要独立部署。目前核心的技术栈采用的是SpringBoot2.1.5.RELEASE+Dubbo2.7.2,  
 
 ## 前端使用的技术
 
@@ -58,32 +71,50 @@
 | shopping-service，提供购物车、推荐商品、商品等服务           | dubbo服务 | 20881端口                                            |
 | user-service ，提供用户相关服务                              | dubbo服务 | 20880端口                                            |
 | order-service ，提供订单服务                                 | dubbo服务 | 20882端口                                            |
+| comment-service , 商品评论服务                               | dubbo服务 | 20885端口                                            |
 | PRD                                                          |           | 存放prd需求文档，有想参与设计的同学，可以提供prd需求 |
 | wiki                                                         |           | 帮助文档，需要每一位同学贡献自己的一份力量           |
 
-# 应用架构图
-
-![1565533924343](1565533924343.png)
 
 
+# 项目搭建方式
 
-# 部署说明
+1. 创建gpmall数据库，并把`db_scrpit`目录下的sql脚本导入。
 
-模块比较多，部署这块会比较复杂。由于没有远程私服的支持，所以都需要本地先构建才能运行
+2. 按照下面顺序分别启动相关服务
 
-1. 提前把环境准备好，zookeeper、mysql、redis、kafka(暂时没用到)等
-2. gpmall-parent 是一个父控文件，需要先install到本地仓库
-3. gpmall-commons 公共组件，第二步结束之后执行install安装
-4. 把所有dubbo服务的api全部install到本地仓库
-5. 分别启动gpmall-user/gpmall-shopping.  如果在同一个机器运行，需要指定不同的端口
+   * gpmall-parent , 这个是整个项目的父控文件，需要执行install安装到本地，如果自己搭建了nexus，可以deploy到nexus上
 
-# 前端项目启动流程
+   * gpmall-commons ， 这个是整个项目的公共依赖，执行install安装到本地，如果自己搭建了nexus，可以deploy到nexus上
 
-前端项目依赖node，所以需要先安装node环境
+     > 注： 下列微服务，用到了mysql、redis、kafka等，需要提前安装好相关中间件，并且所有的服务配置的是host地址，建议用hostswitch工具统一维护
 
-1. 去node官网下载nodejs安装文件进行安装，如果在`cmd`中输入 npm -version 能够显示版本，说明安装成功
-2. 进入gpmall-front , 执行npm install
-3. 第二步成功之后，执行npm  run dev 启动前端项目
+   * user-service ,  用户服务，把`user-service-api`模块，install到本地仓库，因为其他模块有依赖。然后启动服务。
+
+   * order-service , 订单服务， 把`order-service-api`模块，install到本地，给其他模块依赖
+
+   * shopping-service , 商品服务， 把`shopping-service-api`模块，install到本地，给其他模块依赖
+
+   * marking-service , 营销服务，暂时未开发功能。
+
+   * pay-service , 支付服务，代码已经写完并调试通过（但是用的是老的接口版本，如果是新的版本，需要改接口），还需要提供appid这些，不过这个项目不启动，并不影响前面的页面的功能
+
+   * comment-service , 评论服务，用于展示商品评论信息
+
+     > 下面的服务为BFF，做服务聚合，分别依赖上面的微服务模块
+
+   * gpmall-shopping 
+
+   * gpmall-user
+
+   * gpmall-cashier 
+
+3. 前端工程 gpmall-front， 这个项目采用vue开发。
+
+   1. 安装node环境
+   2. 安装python2.7
+   3. 在gpmall-front中执行`npm install` ，
+   4. 再执行`npm run dev`运行，  如果后端的服务都正常启动，此时gpmall-front会把请求转发到服务端获取相关数据进行渲染。
 
 # 项目开发进度
 
@@ -95,13 +126,25 @@
 * 购物车、订单查询、下单、支付
 * 促销活动
 
-![1565235690613](1565235690613.png)
+![1565235690613](README.assets/1565235690613.png)
 
 ## 后台规划
 
-后台这块我会搭建一个框架，有兴趣的同学可以参与开发，主要是提供对于前端相关模块的配置
+
+
+# 效果图
+
+![](README.assets/项目演示图1.png)
+
+
+
+![](README.assets/项目演示图2.png)
+
+![](README.assets/项目演示图3.png)
 
 # 项目架构图
+
+![1565861422268](README.assets/1565861422268.png)
 
 
 
@@ -118,9 +161,18 @@
 
 
 
+<<<<<<< HEAD
+# 
+=======
+# 个人微信公众号
 
+![跟着Mic学架构](https://mic-blob-bucket.oss-cn-beijing.aliyuncs.com/qrcode_for_gh_2ca1c20d4f6c_258.jpg)
 
+>>>>>>> 88aab362053f002aeff65bb3c957591fafb1c788
 
+>  作者的个人博客
+
+https://istio.tech
 
 
 

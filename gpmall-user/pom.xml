@@ -15,6 +15,19 @@
     <name>gpmall-user</name>
     <description>gpmall-user</description>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://192.168.8.136:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.8.136:8081/repository/huhy-nexus/</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <java.version>1.8</java.version>
         <kaptcha.version>2.3.2</kaptcha.version>
